@@ -8,10 +8,8 @@ import t300 from '../espn'
 class PlayerTable extends React.Component {
     state = {
         isFiltered: false,
-        filteredValue: null,
-        isMatched: false,
-        players: t300,
-        filteredPlayers: null
+        players: t300.sort((a,b)=>(parseInt(a.rank) > parseInt(b.rank)) ? 1 : -1),
+        playerStore: null
     }
     sortByRank = (toggle) => {
       this.setState(
@@ -85,18 +83,49 @@ class PlayerTable extends React.Component {
         )
       )
     }
-    selectFilterFocus = (val) => {
-        this.setState(
-            ()=>{
-                return(
-                    {
-                        isFiltered: true,
-                        filteredValue: parseInt(val),
-                        isKey: true,
-                    }
-                )
-            }
-        )
+    filterByBye = (match) => {
+      const oldState = this.state.players
+      const filtered = [];
+      
+      oldState.forEach((player)=>{
+        if(parseInt(player.bye) === match){
+          filtered.push(player)
+        }
+      })
+      this.setState(
+        {
+          players: filtered,
+          isFiltered: true,
+          playerStore: oldState
+        }
+      )
+    }
+    filterByTeam = (match) => {
+      const oldState = this.state.players
+      const filtered = [];
+      
+      oldState.forEach((player)=>{
+        if(player.team === match){
+          filtered.push(player)
+        }
+      })
+      this.setState(
+        {
+          players: filtered,
+          isFiltered: true,
+          playerStore: oldState
+        }
+      )
+    }
+    resetPlayerStore = () => {
+      const stored = this.state.playerStore
+      this.setState(
+        {
+          isFiltered: false,
+          players: stored,
+          playerStore: null
+        }
+      )
     }
     render() {
         return(
@@ -114,7 +143,7 @@ class PlayerTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-              <Players players={this.state.players} isFiltered={this.state.isFiltered} />
+              <Players players={this.state.players} reset={this.resetPlayerStore} filterByBye={this.filterByBye} filterByTeam={this.filterByTeam} store={this.playerStore} isFiltered={this.state.isFiltered} />
         </tbody>
       </Table>
         )

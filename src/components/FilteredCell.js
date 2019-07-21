@@ -1,12 +1,27 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const ScreenWrap = styled.span`
+    transition: all .3s ease;
+    :hover {
+        cursor: pointer;
+        color: #40798C
+        transition: all .3s ease;
+    }
+`
+const ScreenWrapCancel = styled.span`
+    color: #40798C
+    :hover {
+        color: red;
+    }
+`
 
 const FilteredCell = (props) => {
-    const Filtered = <td><strong>{props.cell_value}</strong></td>
-    const filterClass = props.filtered ? 'filtered' : 'filterable'
-    const UnFiltered = <td className={filterClass} onClick={()=>props.focus(props.cell_value)}><span>{props.cell_value}</span></td>
+    const Filtered = <td onClick={props.reset}><ScreenWrap><ScreenWrapCancel>{props.screen}</ScreenWrapCancel></ScreenWrap></td>
+    const UnFiltered = <td onClick={()=>props.filter(props.screen)}><ScreenWrap>{props.screen}</ScreenWrap></td>
 
     return(
-        props.filtered ? Filtered : UnFiltered
+        props.isFiltered ? Filtered : UnFiltered
     )
 }
 
