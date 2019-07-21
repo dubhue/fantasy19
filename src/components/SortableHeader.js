@@ -15,7 +15,7 @@ class Sortable extends React.Component {
     render() {
         return(
                 <TH onClick={()=>{
-                        this.props.sort(this.state.sortASC);
+                        this.props.sort(this.state.sortASC,this.props.title);
                         this.setState(prev=>{
                             return {
                                 sortASC: !prev.sortASC

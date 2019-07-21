@@ -309,6 +309,7 @@ const getPlayerFromRaw = (str) => {
   pos_id = position.slice(0,position.indexOf(pos_rank)),
   name = str.slice(str.indexOf(')')+2,str.indexOf(',')),
   first = name.split(' ')[0],
+  last = name.slice(first.length+1,name.length),
   team = str.slice(str.indexOf(',')+2,str.indexOf('$')-1),
   bid_bye = str.split('$')[1],
   bid = bid_bye.split(' ')[0],
@@ -316,13 +317,14 @@ const getPlayerFromRaw = (str) => {
   return { 
     name: {
       first,
-      last: name.slice(first.length+1,name.length)
+      last: last
     },
     team,
     rank: str.split('.')[0],
     position: { pos_id, pos_rank },
     bid,
-    bye
+    bye,
+    id: first+'.'+last+'.'+pos_id+'.'+team
   }
 }
 
