@@ -1,5 +1,5 @@
 import React from 'react'
-import FilteredCell from './FilteredCell'
+import FilteredCell from './FilteredCell/FilteredCell'
 import styled from 'styled-components'
 
 const NumWrap = styled.td`
@@ -15,7 +15,8 @@ const Player = (props) => {
     return(
             <tr className={filt}>
                 <NumWrap><span>{props.num+1}</span></NumWrap>
-                <td><em>#</em><strong>{player.rank}</strong></td>
+                <td><em>#</em><strong>{player.rank}</strong>({Math.floor(parseInt(player.rank)/12)+1
+                })</td>
                 <td>{player.name.first}</td>
                 <td>{player.name.last}</td>
                 <FilteredCell filter={props.filter} action="pos_id" screen={player.position.pos_id} isFiltered={props.isFiltered} store={props.store} reset={props.reset} player={props.player} />

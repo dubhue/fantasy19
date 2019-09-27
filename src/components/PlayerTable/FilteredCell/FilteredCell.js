@@ -18,7 +18,9 @@ const ScreenWrapCancel = styled.span`
 
 const FilteredCell = (props) => {
     const Filtered = <td onClick={props.reset}><ScreenWrap><ScreenWrapCancel>{props.screen}</ScreenWrapCancel></ScreenWrap></td>
-    const UnFiltered = <td onClick={()=>props.filter(props.screen,props.action)}><ScreenWrap>{props.screen}</ScreenWrap></td>
+    const UnFiltered = (<td onClick={()=>props.filter(props.screen,props.action)}>
+                        <ScreenWrap>{props.screen}</ScreenWrap>
+                        </td>)
 
     return(
         props.isFiltered ? Filtered : UnFiltered

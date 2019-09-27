@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayerTable from './components/PlayerTable'
+import PlayerTable from './components/PlayerTable/PlayerTable'
 import './App.css';
 
 
